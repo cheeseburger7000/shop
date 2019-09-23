@@ -35,7 +35,7 @@ public class GoodsService {
      * @param goods
      * @return
      */
-    GoodsDto addGoods(Goods goods) {
+    public GoodsDto addGoods(Goods goods) {
         goods.setCreateTime(new Date());
         goods.setStatus(GoodsStatus.ON_THE_SHELF);
 
@@ -57,7 +57,7 @@ public class GoodsService {
      * @param pageSize
      * @return
      */
-    List<GoodsDto> goodsList(int pageNum, int pageSize) {
+    public List<GoodsDto> goodsList(int pageNum, int pageSize) {
         List<GoodsDto> result = new ArrayList<>();
 
         List<Goods> goodsList = goodsMapper.goodsList(new RowBounds(pageNum, pageSize));
@@ -84,7 +84,7 @@ public class GoodsService {
      * @param pageSize
      * @return
      */
-    List<GoodsDto> goodsListByCategoryId(Long categoryId, int pageNum, int pageSize) {
+    public List<GoodsDto> goodsListByCategoryId(Long categoryId, int pageNum, int pageSize) {
         List<GoodsDto> result = new ArrayList<>();
 
         List<Goods> goodsList = goodsMapper.goodsListByCategoryId(categoryId, new RowBounds(pageNum, pageSize));
@@ -108,7 +108,7 @@ public class GoodsService {
      * @param goodsId
      * @return
      */
-    GoodsDto getById(Long goodsId) {
+    public GoodsDto getById(Long goodsId) {
         Goods goods = goodsMapper.getById(goodsId);
         log.info("【商品模块】根据goodsId：{} 获取商品：{}", goodsId, goods);
 
@@ -129,7 +129,7 @@ public class GoodsService {
      * @param pageSize
      * @return
      */
-    List<GoodsDto> search(String keyword, int pageNum, int pageSize) {
+    public List<GoodsDto> search(String keyword, int pageNum, int pageSize) {
         List<GoodsDto> result = new ArrayList<>();
         List<Goods> goodsList = goodsMapper.search("%" + keyword + "%", new RowBounds(pageNum, pageSize));
         log.info("【商品模块】关键词：{} 商品列表：", keyword, goodsList);

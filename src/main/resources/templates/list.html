@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"> <!-- 记得添加thymeleaf约束 -->
+<head>
+    <title>goods List</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <table>
+        <tr>
+            <td>商品名称</td>
+            <td>价格</td>
+            <td>库存</td>
+            <td>状态</td>
+            <td>商品类目</td>
+        </tr>
+        <tr th:each="goods : ${goodsList}">
+            <td th:text="${goods.name}">商品名称</td>
+            <td th:text="${goods.price}">价格</td>
+            <td th:text="${goods.stock}">库存</td>
+            <td th:text="${goods.status}">状态</td>
+            <td th:text="${goods.categoryName}">商品类目</td>
+        </tr>
+    </table>
+</body>
+</html>

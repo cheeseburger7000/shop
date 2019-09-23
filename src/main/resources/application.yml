@@ -4,7 +4,11 @@ mybatis:
   mapper-locations: classpath*:/mapper/**/*.xml
   type-aliases-package: com.shaohsiung.shop.model
   type-handlers-package: com.shaohsiung.shop.handler
+
 spring:
+  thymeleaf:
+    cache: false # 关闭thymeleaf缓存，效果：修改html模板之后，按`Ctrl + Shift + F9`刷新工程，无需重启项目。
+
   datasource:
     username: root
     password: root
