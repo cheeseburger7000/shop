@@ -1,0 +1,22 @@
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath*:/mapper/**/*.xml
+  type-aliases-package: com.shaohsiung.shop.model
+  type-handlers-package: com.shaohsiung.shop.handler
+spring:
+  datasource:
+    username: root
+    password: root
+    url: jdbc:mysql://localhost:3306/db_shop?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC
+  output:
+    ansi:
+      enabled: always
+  redis:
+    host: localhost
+    lettuce:
+      pool:
+        max-active: 5
+        max-idle: 5
+server:
+  port: 8080
