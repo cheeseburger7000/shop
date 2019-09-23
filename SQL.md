@@ -37,6 +37,7 @@ create table t_goods (
 	stock int not null,
 	status int not null default 0 comment '0正常 1已下架(stock=0或删除)',
 	create_time datetime not null,
+	image varchar(255) not null,
 	category_id bigint not null,
 	primary key (goods_id)
 );
@@ -62,6 +63,7 @@ create table t_order (
 	total decimal(8,2) not null comment '订单总额',
 	status int not null default 0 comment '0未发货 1已发货 2已完成 3已取消 4已关闭',
 	user_id bigint not null,
+	create_time datetime not null,
 	primary key (order_id),
 	unique (order_no)
 );
@@ -73,6 +75,7 @@ create table t_admin (
 	admin_id bigint not null auto_increment,
 	admin_name varchar(255) not null,
 	password varchar(255) not null,
+	root tinyint not null default 0,
 	primary key (admin_id)
 );
 ```
