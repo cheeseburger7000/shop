@@ -43,6 +43,13 @@ public class GoodsServiceTest {
     }
 
     @Test
+    public void goodsList() {
+        List<GoodsDto> page1 = goodsService.goodsList(0, 5);
+        List<GoodsDto> page2 = goodsService.goodsList(1, 5);
+        List<GoodsDto> page3 = goodsService.goodsList(2, 5);
+    }
+
+    @Test
     public void getById() {
         GoodsDto goodsDto = goodsService.getById(10L);
     }

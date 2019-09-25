@@ -60,7 +60,7 @@ public class GoodsService {
     public List<GoodsDto> goodsList(int pageNum, int pageSize) {
         List<GoodsDto> result = new ArrayList<>();
 
-        List<Goods> goodsList = goodsMapper.goodsList(new RowBounds(pageNum, pageSize));
+        List<Goods> goodsList = goodsMapper.goodsList(new RowBounds(pageNum * pageSize, pageSize));
         log.info("【商品模块】获取商品列表：{}", goodsList);
 
         // TODO 重构抽取重复代码
@@ -87,7 +87,7 @@ public class GoodsService {
     public List<GoodsDto> goodsListByCategoryId(Long categoryId, int pageNum, int pageSize) {
         List<GoodsDto> result = new ArrayList<>();
 
-        List<Goods> goodsList = goodsMapper.goodsListByCategoryId(categoryId, new RowBounds(pageNum, pageSize));
+        List<Goods> goodsList = goodsMapper.goodsListByCategoryId(categoryId, new RowBounds(pageNum * pageSize, pageSize));
         log.info("【商品模块】根据categoryId：{} 获取商品列表：{}", categoryId, goodsList);
 
         goodsList.forEach(goods -> {
@@ -131,7 +131,8 @@ public class GoodsService {
      */
     public List<GoodsDto> search(String keyword, int pageNum, int pageSize) {
         List<GoodsDto> result = new ArrayList<>();
-        List<Goods> goodsList = goodsMapper.search("%" + keyword + "%", new RowBounds(pageNum, pageSize));
+
+        List<Goods> goodsList = goodsMapper.search("%" + keyword + "%", new RowBounds(pageNum * pageSize, pageSize));
         log.info("【商品模块】关键词：{} 商品列表：", keyword, goodsList);
 
         goodsList.forEach(goods -> {

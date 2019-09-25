@@ -77,7 +77,7 @@ public class UserService {
     public List<UserDto> userList(int pageNum, int pageSize) {
         List<UserDto>  result = new ArrayList();
 
-        List<User> userList = userMapper.findAll(new RowBounds(pageNum, pageSize));
+        List<User> userList = userMapper.findAll(new RowBounds(pageNum * pageSize, pageSize));
         userList.forEach(user -> {
             UserDto userDto = new UserDto();
             BeanUtils.copyProperties(user, userDto);

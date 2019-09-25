@@ -17,13 +17,6 @@ alter table t_goods add image varchar(255) not null;
 
 ## 七牛云图片上传
 
-
-## 自动化测试
-
-
-## gitflow
-
-
 ## 待处理
 mybatis分页偏移问题
 

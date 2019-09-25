@@ -49,7 +49,7 @@ public class CategoryService {
     public List<CategoryDto> categoryList(int pageNum, int pageSize) {
         List<CategoryDto>  result = new ArrayList();
 
-        List<Category> categoryList = categoryMapper.findAll(new RowBounds(pageNum, pageSize));
+        List<Category> categoryList = categoryMapper.findAll(new RowBounds(pageNum * pageSize, pageSize));
         log.info("【商品类目模块】分类列表：{}", categoryList);
 
         categoryList.forEach(category -> {

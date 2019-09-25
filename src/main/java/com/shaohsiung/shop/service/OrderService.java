@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 订单模块
@@ -70,6 +71,9 @@ public class OrderService {
             OrderItem orderItem = new OrderItem();
             BeanUtils.copyProperties(cartItem, orderItem);
             orderItem.setOrderId(order.getOrderId());
+
+            // TODO 扣除商品库存
+
             int savedOrderItem = orderMapper.saveOrderItem(orderItem);
             if (!(savedOrder == 1)) {
                 log.error("【订单模块】订单创建失败 userId: {}", userId);
@@ -168,14 +172,25 @@ public class OrderService {
      * @return
      */
     public List<OrderDto> getUserOrderList(Long userId, int pageNum, int pageSize) {
-        List<OrderDto> result = new ArrayList<>();
-        List<Order> orderList = orderMapper.getOrderListByUserId(userId, new RowBounds(pageNum, pageSize));
-        orderList.forEach(order -> {
+        // 将List<Order>转换为List<OrderDto>
+        // 传统做法：
+//        List<OrderDto> result = new ArrayList<>();
+//        List<Order> orderList = orderMapper.getOrderListByUserId(userId, new RowBounds(pageNum * pageSize, pageSize));
+//        orderList.forEach(order -> {
+//            OrderDto orderDto = new OrderDto();
+//            BeanUtils.copyProperties(order, orderDto);
+//
+//            result.add(orderDto);
+//        });
+
+        // 使用stream api：
+        List<OrderDto> result;
+        List<Order> orderList = orderMapper.getOrderListByUserId(userId, new RowBounds(pageNum * pageSize, pageSize));
+        result = orderList.stream().map(order -> {
             OrderDto orderDto = new OrderDto();
             BeanUtils.copyProperties(order, orderDto);
-
-            result.add(orderDto);
-        });
+            return orderDto;
+        }).collect(Collectors.toList());
         return result;
     }
 
@@ -282,15 +297,22 @@ public class OrderService {
      * @return
      */
     public List<OrderDto> getOrderList(int pageNum, int pageSize) {
-        List<OrderDto> result = new ArrayList<>();
+//        List<OrderDto> result = new ArrayList<>();
 
-        List<Order> orderList = orderMapper.getOrderList(new RowBounds(pageNum, pageSize));
-        orderList.forEach(order -> {
+        List<Order> orderList = orderMapper.getOrderList(new RowBounds(pageNum * pageSize, pageSize));
+        // 使用stream api将List<Order>转化为List<OrderDto>
+        List<OrderDto> result = orderList.stream().map(order -> {
             OrderDto orderDto = new OrderDto();
             BeanUtils.copyProperties(order, orderDto);
+            return orderDto;
+        }).collect(Collectors.toList());
 
-            result.add(orderDto);
-        });
+//        orderList.forEach(order -> {
+//            OrderDto orderDto = new OrderDto();
+//            BeanUtils.copyProperties(order, orderDto);
+//
+//            result.add(orderDto);
+//        });
         return result;
     }
 
